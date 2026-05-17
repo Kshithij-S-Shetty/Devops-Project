@@ -20,7 +20,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('backend') {
-                    bat 'docker build -t smart-expense-backend .'
+                    bat 'docker build -t smart-expense-backend:v2 .'
                 }
             }
         }

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Expense Tracker - Dashboard</title>
+    <title>Smart Expense Tracker - Dashboard - DevOps</title>
     <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
     <!-- Font Awesome -->
@@ -11,6 +12,7 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <div class="app-container">
         <!-- Sidebar -->
@@ -22,7 +24,7 @@
             </div>
             <nav class="sidebar-nav">
                 <a href="dashboard.html" class="nav-item">
-                    <i class="fas fa-home"></i> Dashboard
+                    <i class="fas fa-home"></i> Dashboard - DevOps Lab
                 </a>
                 <a href="expenses.html" class="nav-item">
                     <i class="fas fa-receipt"></i> Expenses
@@ -66,7 +68,7 @@
 
             <!-- Dashboard Content -->
             <div class="content-area">
-                
+
                 <!-- Summary Cards Row 1 -->
                 <div class="summary-grid">
                     <div class="glass-card summary-card">
@@ -80,7 +82,8 @@
                     </div>
 
                     <div class="glass-card summary-card">
-                        <div class="summary-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--secondary-color);">
+                        <div class="summary-icon"
+                            style="background: rgba(16, 185, 129, 0.15); color: var(--secondary-color);">
                             <i class="fas fa-bullseye"></i>
                         </div>
                         <div class="summary-info">
@@ -88,7 +91,7 @@
                             <h3 id="card-budget">$0.00</h3>
                         </div>
                     </div>
-                    
+
                     <div class="glass-card summary-card">
                         <div class="summary-icon income">
                             <i class="fas fa-arrow-down"></i>
@@ -111,7 +114,8 @@
                 </div>
 
                 <!-- Summary Cards Row 2 -->
-                <div class="summary-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 2rem;">
+                <div class="summary-grid"
+                    style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 2rem;">
                     <div class="glass-card summary-card" style="padding: 1rem;">
                         <div class="summary-info">
                             <p>Today's Expense</p>
@@ -154,12 +158,14 @@
                             <h3 style="margin-bottom:0;">Recent</h3>
                             <a href="expenses.html" class="text-gradient" style="font-size: 0.875rem;">View All</a>
                         </div>
-                        <div id="recent-transactions-list" style="display: flex; flex-direction: column; gap: 1rem; flex: 1;">
+                        <div id="recent-transactions-list"
+                            style="display: flex; flex-direction: column; gap: 1rem; flex: 1;">
                             <!-- Populated by JS -->
                             <div class="text-center text-muted" style="padding: 2rem 0; margin: auto;">
                                 <i class="fas fa-receipt mb-2" style="font-size: 2rem; opacity: 0.5;"></i>
                                 <p>No recent transactions.</p>
-                                <a href="expenses.html" class="btn btn-primary" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.875rem;">Add One Now</a>
+                                <a href="expenses.html" class="btn btn-primary"
+                                    style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.875rem;">Add One Now</a>
                             </div>
                         </div>
                     </div>
@@ -174,4 +180,5 @@
     <script src="js/main.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
+
 </html>

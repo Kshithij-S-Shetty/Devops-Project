@@ -8,11 +8,11 @@ const seedDemoAccount = async () => {
         let demoUser = await User.findOne({ email: demoEmail });
 
         if (demoUser) {
-            console.log('Demo account already exists. Skipping seed.');
+            console.log('Backend initialized successfully.');
             return;
         }
 
-        console.log('Seeding demo account...');
+        console.log('Initializing sample data...');
         demoUser = new User({
             name: 'Demo User',
             email: demoEmail,
@@ -44,7 +44,7 @@ const seedDemoAccount = async () => {
             let amount = 20;
             let cat = 'Food';
             let desc = 'Daily Expense';
-            
+
             if (day === 1) { amount = 15; cat = 'Travel'; desc = 'Commute'; }
             else if (day === 2) { amount = 35; cat = 'Food'; desc = 'Lunch out'; }
             else if (day === 3) { amount = 45; cat = 'Bills'; desc = 'Subscriptions'; }
@@ -52,7 +52,7 @@ const seedDemoAccount = async () => {
             else if (day === 5) { amount = 95; cat = 'Entertainment'; desc = 'Friday Night out'; }
             else if (day === 6) { amount = 160; cat = 'Shopping'; desc = 'Weekend Shopping'; }
             else if (day === 0) { amount = 85; cat = 'Food'; desc = 'Sunday Brunch'; }
-            
+
             amount = amount + (Math.random() * 10 - 5);
             transactions.push({ userId: demoUser._id, type: 'expense', amount: parseFloat(amount.toFixed(2)), category: cat, description: desc, date: getDateDaysAgo(i) });
         }
@@ -70,7 +70,7 @@ const seedDemoAccount = async () => {
         historicalData.forEach(data => {
             const d = new Date(data.year, data.month, 10);
             const dateStr = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
-            
+
             transactions.push({ userId: demoUser._id, type: 'expense', amount: parseFloat((data.amount * 0.4).toFixed(2)), category: 'Bills', description: 'Monthly Rent', date: dateStr });
             transactions.push({ userId: demoUser._id, type: 'expense', amount: parseFloat((data.amount * 0.3).toFixed(2)), category: 'Food', description: 'Groceries', date: dateStr });
             transactions.push({ userId: demoUser._id, type: 'expense', amount: parseFloat((data.amount * 0.3).toFixed(2)), category: 'Shopping', description: 'Shopping', date: dateStr });
@@ -78,9 +78,9 @@ const seedDemoAccount = async () => {
         });
 
         await Transaction.insertMany(transactions);
-        console.log('Demo account seeded successfully.');
+        console.log('Sample data loaded successfully.');
     } catch (err) {
-        console.error('Error seeding demo account:', err);
+        console.error('Error initializing sample data:', err);
     }
 };
 

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker - Analytics</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-wallet"></i> SmartExpense
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="expenses.html" class="nav-item">
+                    <i class="fas fa-receipt"></i> Expenses
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <i class="fas fa-chart-pie"></i> Analytics
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="nav-item" style="color: var(--danger-color);">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navbar -->
+            <header class="navbar">
+                <div class="navbar-left">
+                    <button class="sidebar-toggle" id="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2 style="margin-bottom: 0;">Analytics</h2>
+                </div>
+                <div class="navbar-right">
+                    <button class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-profile">
+                        <div class="avatar">AJ</div>
+                        <div class="user-info">
+                            <h4 class="user-name">User</h4>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                
+                <!-- Insights Row -->
+                <div class="summary-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 2rem;">
+                    <div class="glass-card summary-card" style="padding: 1rem;">
+                        <div class="summary-info">
+                            <p>Top Category</p>
+                            <h3 id="insight-top-cat" style="font-size: 1.25rem;">-</h3>
+                        </div>
+                    </div>
+                    <div class="glass-card summary-card" style="padding: 1rem;">
+                        <div class="summary-info">
+                            <p>Biggest Expense</p>
+                            <h3 id="insight-max-exp" style="font-size: 1.25rem;">$0.00</h3>
+                        </div>
+                    </div>
+                    <div class="glass-card summary-card" style="padding: 1rem;">
+                        <div class="summary-info">
+                            <p>Total Savings</p>
+                            <h3 id="insight-savings-pct" style="font-size: 1.25rem;">0%</h3>
+                        </div>
+                    </div>
+                    <div class="glass-card summary-card" style="padding: 1rem;">
+                        <div class="summary-info">
+                            <p>Budget Status</p>
+                            <h3 id="insight-budget-status" style="font-size: 1.25rem;">-</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3>Spending Trends</h3>
+                        <select id="trend-filter" class="form-control" style="width: 150px;">
+                            <option value="monthly">Monthly</option>
+                            <option value="weekly">Weekly</option>
+                        </select>
+                    </div>
+                    <div class="chart-container" style="height: 350px;">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="charts-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="glass-card">
+                        <h3 class="mb-3">Category Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 class="mb-3">Income vs Expense</h3>
+                        <div class="d-flex" style="gap: 1rem; align-items: center;">
+                            <div class="chart-container" style="flex: 1; height: 250px;">
+                                <canvas id="incomeExpenseChart"></canvas>
+                            </div>
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 1rem;">
+                                <div>
+                                    <p class="text-muted" style="margin:0; font-size: 0.875rem;">Savings Amount</p>
+                                    <h4 id="ie-savings" style="margin:0; font-size: 1.25rem; color: var(--secondary-color);">$0.00</h4>
+                                </div>
+                                <div>
+                                    <p class="text-muted" style="margin:0; font-size: 0.875rem;">Expense Ratio</p>
+                                    <h4 id="ie-ratio" style="margin:0; font-size: 1.25rem;">0%</h4>
+                                </div>
+                                <div>
+                                    <p class="text-muted" style="margin:0; font-size: 0.875rem;">Remaining Balance</p>
+                                    <h4 id="ie-remaining" style="margin:0; font-size: 1.25rem;">$0.00</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smart Financial Insights -->
+                <div class="glass-card" style="margin-top: 2rem;">
+                    <h3 class="mb-3"><i class="fas fa-lightbulb" style="color: var(--warning-color); margin-right: 0.5rem;"></i> Smart Financial Insights</h3>
+                    <ul id="smart-insights-list" style="margin-left: 1.5rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.75rem;">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/analytics.js"></script>
+</body>
+</html>

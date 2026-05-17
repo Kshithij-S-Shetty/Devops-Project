@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker - Expenses</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-wallet"></i> SmartExpense
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="expenses.html" class="nav-item">
+                    <i class="fas fa-receipt"></i> Expenses
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <i class="fas fa-chart-pie"></i> Analytics
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="nav-item" style="color: var(--danger-color);">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navbar -->
+            <header class="navbar">
+                <div class="navbar-left">
+                    <button class="sidebar-toggle" id="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2 style="margin-bottom: 0;">Expenses</h2>
+                </div>
+                <div class="navbar-right">
+                    <button class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-profile">
+                        <div class="avatar">AJ</div>
+                        <div class="user-info">
+                            <h4 class="user-name">User</h4>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                
+                <div class="glass-card mb-4">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                        <div class="d-flex gap-2 align-items-center">
+                            <input type="text" id="search-input" class="form-control" placeholder="Search description..." style="width: 250px;">
+                            <select id="category-filter" class="form-control" style="width: 150px;">
+                                <option value="All">All Categories</option>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-secondary" id="btn-add-income">
+                                <i class="fas fa-plus"></i> Add Income
+                            </button>
+                            <button class="btn btn-primary" id="btn-add-expense">
+                                <i class="fas fa-plus"></i> Add Expense
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expense-table-body">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal" id="expense-modal">
+        <div class="glass-card modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add Transaction</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="expense-form">
+                <input type="hidden" id="expense-id">
+                
+                <input type="hidden" id="expense-type">
+
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="number" id="expense-amount" class="form-control" placeholder="0.00" step="0.01" min="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="expense-category" class="form-control" required>
+                        <!-- Populated dynamically -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" id="expense-desc" class="form-control" placeholder="e.g. Grocery" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="expense-date" class="form-control" required>
+                </div>
+
+                <div class="d-flex justify-content-between gap-2" style="margin-top: 2rem;">
+                    <button type="button" class="btn btn-secondary close-modal" style="flex: 1;">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/expenses.js"></script>
+</body>
+</html>

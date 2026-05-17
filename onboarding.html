@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker - Setup</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body data-theme="dark">
+    <div class="auth-container">
+        <div class="glass-card auth-card" style="max-width: 500px;">
+            <div class="logo">
+                <i class="fas fa-wallet"></i> SmartExpense
+            </div>
+            
+            <h2 class="mb-1">Let's Get Started</h2>
+            <p class="text-muted mb-4">Set up your profile to personalize your dashboard</p>
+
+            <form id="onboarding-form">
+                
+                <div class="form-group">
+                    <label for="currency">Preferred Currency</label>
+                    <select id="currency" class="form-control" required>
+                        <option value="₹">INR (₹)</option>
+                        <option value="$">USD ($)</option>
+                        <option value="€">EUR (€)</option>
+                        <option value="£">GBP (£)</option>
+                        <option value="¥">JPY (¥)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="monthly-income">Average Monthly Income (Optional)</label>
+                    <input type="number" id="monthly-income" class="form-control" placeholder="0.00" step="0.01">
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="monthly-budget">Monthly Budget Goal</label>
+                    <input type="number" id="monthly-budget" class="form-control" placeholder="e.g. 5000" step="0.01" required>
+                    <small class="text-muted" style="display: block; margin-top: 0.5rem; text-align: left;">We will use this to calculate your remaining budget throughout the month.</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Complete Setup <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Require auth will run from main.js, ensuring only logged in users can see this
+        
+        document.getElementById('onboarding-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const currency = document.getElementById('currency').value;
+            const monthlyIncome = parseFloat(document.getElementById('monthly-income').value) || 0;
+            const monthlyBudget = parseFloat(document.getElementById('monthly-budget').value) || 0;
+
+            const btn = this.querySelector('button');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            btn.disabled = true;
+            
+            setTimeout(async () => {
+                const user = getCurrentUser();
+                if (user) {
+                    try {
+                        await updateSettings({
+                            currency: currency,
+                            monthlyIncome: monthlyIncome,
+                            monthlyBudget: monthlyBudget,
+                            onboarded: true
+                        });
+                        window.location.href = 'dashboard.html';
+                    } catch (err) {
+                        alert('Error saving settings. Please try again.');
+                        btn.innerHTML = 'Complete Setup <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>';
+                        btn.disabled = false;
+                    }
+                }
+            }, 800);
+        });
+    </script>
+</body>
+</html>

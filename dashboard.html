@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker - Dashboard</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-wallet"></i> SmartExpense
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="expenses.html" class="nav-item">
+                    <i class="fas fa-receipt"></i> Expenses
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <i class="fas fa-chart-pie"></i> Analytics
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="nav-item" style="color: var(--danger-color);">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navbar -->
+            <header class="navbar">
+                <div class="navbar-left">
+                    <button class="sidebar-toggle" id="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2 style="margin-bottom: 0;">Dashboard</h2>
+                </div>
+                <div class="navbar-right">
+                    <button class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-profile">
+                        <div class="avatar">AJ</div>
+                        <div class="user-info">
+                            <h4 class="user-name">User</h4>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-area">
+                
+                <!-- Summary Cards Row 1 -->
+                <div class="summary-grid">
+                    <div class="glass-card summary-card">
+                        <div class="summary-icon balance">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="summary-info">
+                            <p>Remaining</p>
+                            <h3 id="card-balance">$0.00</h3>
+                        </div>
+                    </div>
+
+                    <div class="glass-card summary-card">
+                        <div class="summary-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--secondary-color);">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="summary-info">
+                            <p>Monthly Budget Goal</p>
+                            <h3 id="card-budget">$0.00</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card summary-card">
+                        <div class="summary-icon income">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="summary-info">
+                            <p>Total Income</p>
+                            <h3 id="card-income">$0.00</h3>
+                        </div>
+                    </div>
+
+                    <div class="glass-card summary-card">
+                        <div class="summary-icon expense">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="summary-info">
+                            <p>Spent</p>
+                            <h3 id="card-expense">$0.00</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Cards Row 2 -->
+                <div class="summary-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 2rem;">
+                    <div class="glass-card summary-card" style="padding: 1rem;">
+                        <div class="summary-info">
+                            <p>Today's Expense</p>
+                            <h3 id="card-today" style="font-size: 1.25rem;">$0.00</h3>
+                        </div>
+                    </div>
+                    <div class="glass-card summary-card" style="padding: 1rem;">
+                        <div class="summary-info">
+                            <p>Weekly Expense</p>
+                            <h3 id="card-weekly" style="font-size: 1.25rem;">$0.00</h3>
+                        </div>
+                    </div>
+                    <div class="glass-card summary-card" style="padding: 1rem;">
+                        <div class="summary-info">
+                            <p>Monthly Expense</p>
+                            <h3 id="card-monthly" style="font-size: 1.25rem;">$0.00</h3>
+                        </div>
+                    </div>
+                    <div class="glass-card summary-card" style="padding: 1rem;">
+                        <div class="summary-info">
+                            <p>Total Transactions</p>
+                            <h3 id="card-transactions" style="font-size: 1.25rem;">0</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts & Recent Transactions -->
+                <div class="charts-grid">
+                    <!-- Mini Chart -->
+                    <div class="glass-card">
+                        <h3 class="mb-3">Weekly Spending Trend</h3>
+                        <div class="chart-container">
+                            <canvas id="weeklyMiniChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Recent Transactions -->
+                    <div class="glass-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 style="margin-bottom:0;">Recent</h3>
+                            <a href="expenses.html" class="text-gradient" style="font-size: 0.875rem;">View All</a>
+                        </div>
+                        <div id="recent-transactions-list" style="display: flex; flex-direction: column; gap: 1rem; flex: 1;">
+                            <!-- Populated by JS -->
+                            <div class="text-center text-muted" style="padding: 2rem 0; margin: auto;">
+                                <i class="fas fa-receipt mb-2" style="font-size: 2rem; opacity: 0.5;"></i>
+                                <p>No recent transactions.</p>
+                                <a href="expenses.html" class="btn btn-primary" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.875rem;">Add One Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

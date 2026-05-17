@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker - Login</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body data-theme="dark">
+    <div class="auth-container">
+        <div class="glass-card auth-card">
+            <div class="logo">
+                <i class="fas fa-wallet"></i> SmartExpense
+            </div>
+            
+            <h2 class="mb-1">Welcome Back</h2>
+            <p class="text-muted mb-4">Enter your credentials to access your dashboard</p>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="name@example.com" required value="alex@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="••••••••" required value="password123">
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <label class="d-flex align-items-center gap-1 text-muted" style="cursor: pointer; font-size: 0.875rem;">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#" class="text-gradient" style="font-size: 0.875rem; font-weight: 500;">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Login <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                </button>
+            </form>
+
+
+
+            <p class="text-muted" style="margin-top: 2rem;">
+                Don't have an account? <a href="register.html" class="text-gradient" style="font-weight: 600;">Create one</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const btn = this.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+            btn.disabled = true;
+            
+            setTimeout(async () => {
+                try {
+                    const user = await loginUser(email, password);
+                    if (!user.settings.onboarded) {
+                        window.location.href = 'onboarding.html';
+                    } else {
+                        window.location.href = 'dashboard.html';
+                    }
+                } catch (err) {
+                    alert(err.message);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            }, 800);
+        });
+    </script>
+</body>
+</html>

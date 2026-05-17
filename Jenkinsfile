@@ -25,6 +25,12 @@ pipeline {
             }
         }
 
+        stage('Check Running Containers') {
+            steps {
+                bat 'docker ps'
+            }
+        }
+
         stage('Build Successful') {
             steps {
                 echo 'CI/CD Pipeline executed successfully!'
